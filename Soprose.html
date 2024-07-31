@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corazón Mediano con Mensaje y Pregunta</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #FFD1DC;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .heart {
+            position: relative;
+            width: 330px;
+            height: 300px;
+            animation: heartbeat 1s infinite;
+        }
+        .heart:before,
+        .heart:after {
+            position: absolute;
+            content: "";
+            left: 165px;
+            top: 0;
+            width: 165px;
+            height: 265px;
+            background: red;
+            border-radius: 165px 165px 0 0;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+        .heart:after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+        .face {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 66px;
+            color: white;
+            z-index: 1;
+        }
+        .message, .question, .final-message {
+            font-size: 24px;
+            margin-top: 20px;
+            text-align: center;
+            color: #333;
+            max-width: 80%;
+        }
+        .buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        #no-btn {
+            transition: all 0.2s ease;
+        }
+        .hidden {
+            display: none;
+        }
+        .flower {
+            font-size: 40px;
+            color: pink;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .bouquet {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div id="initial-content">
+        <div class="heart">
+            <div class="face">:)</div>
+        </div>
+        <div class="message">Felices todos son todos estos años de conocerte</div>
+        <div class="question">¿Me seguirás queriendo siempre?</div>
+        <div class="buttons">
+            <button class="btn" onclick="showFinalMessage()">Sí</button>
+            <button id="no-btn" class="btn" onmouseover="moveButton()">No</button>
+        </div>
+    </div>
+    <div id="final-message" class="hidden">
+        <div class="final-message">Yo igual siempre te querré amorcito :D</div>
+        <div class="bouquet">
+            <span class="flower">🌸</span>
+            <span class="flower">🌷</span>
+            <span class="flower">🌺</span>
+            <span class="flower">🌹</span>
+            <span class="flower">🌸</span>
+        </div>
+    </div>
+
+    <script>
+        function showFinalMessage() {
+            document.getElementById('initial-content').classList.add('hidden');
+            document.getElementById('final-message').classList.remove('hidden');
+        }
+
+        function moveButton() {
+            const button = document.getElementById('no-btn');
+            const maxX = window.innerWidth - button.offsetWidth;
+            const maxY = window.innerHeight - button.offsetHeight;
+            
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+            
+            button.style.position = 'absolute';
+            button.style.left = newX + 'px';
+            button.style.top = newY + 'px';
+        }
+
+        window.onload = function() {
+            const noBtn = document.getElementById('no-btn');
+            const yesBtn = document.querySelector('.buttons .btn');
+            
+            noBtn.style.position = 'static';
+            noBtn.style.marginLeft = '10px';
+        }
+    </script>
+</body>
+</html>
